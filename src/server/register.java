@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class login
+ * Servlet implementation class register
  */
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/register")
+public class register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public login() {
+	public register() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -31,8 +31,6 @@ public class login extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ")
-				.append(request.getContextPath());
 	}
 
 	/**
@@ -48,14 +46,14 @@ public class login extends HttpServlet {
 				&& request.getParameter("password") != null) {
 			username = request.getParameter("username");
 			password = request.getParameter("password");
-			// check username and password
-			if (true) {
-				request.getSession().setAttribute("username", username);
+			if (username.equals("test") && password.equals("test")) {
+				HttpSession session = request.getSession();
+				session.setAttribute("username", username);
 			} else {
-				request.getSession().getAttribute("error")
-						.equals("Invalid username and password pair");
+				request.setAttribute("message", "Invalid username or password");
 			}
 		}
-		response.sendRedirect(request.getContextPath());
+		request.getRequestDispatcher("./").forward(request, response);
 	}
+
 }
