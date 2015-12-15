@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bigDataProcess.bigDataProcesser;
+
 /**
  * Servlet implementation class login
  */
@@ -49,13 +51,11 @@ public class login extends HttpServlet {
 			username = request.getParameter("username");
 			password = request.getParameter("password");
 			// check username and password
-			if (true) {
+			if (bigDataProcesser.login(username, password)) {
 				request.getSession().setAttribute("username", username);
-			} else {
-				request.getSession().getAttribute("error")
-						.equals("Invalid username and password pair");
 			}
 		}
+		System.out.println(request.getContextPath());
 		response.sendRedirect(request.getContextPath());
 	}
 }

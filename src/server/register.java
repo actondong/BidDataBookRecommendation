@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bigDataProcess.bigDataProcesser;
+
 /**
  * Servlet implementation class register
  */
@@ -46,14 +48,15 @@ public class register extends HttpServlet {
 				&& request.getParameter("password") != null) {
 			username = request.getParameter("username");
 			password = request.getParameter("password");
-			if (username.equals("test") && password.equals("test")) {
-				HttpSession session = request.getSession();
-				session.setAttribute("username", username);
+			if (!bigDataProcesser.addUser(username, password)) {
+				response.sendRedirect(request.getContextPath()
+						+ "/register.jsp");
 			} else {
-				request.setAttribute("message", "Invalid username or password");
+				response.sendRedirect(request.getContextPath());
 			}
+		} else {
+			response.sendRedirect(request.getContextPath());
 		}
-		request.getRequestDispatcher("./").forward(request, response);
 	}
 
 }
